@@ -1,0 +1,62 @@
+<div class="container">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-6">
+        <form #R="ngForm" (ngSubmit)="onSeach(R.value)" novalidate class="form-inline">
+          <div class="form-group">
+            <input [(ngModel)]="appStateService.contactState.motCle" name="terme" type="text" class="form-control mr-2" placeholder="Entrer le terme" required>
+          </div>
+          <button [disabled]="!R.valid" class="btn btn-primary" type="submit">
+            <i class="bi bi-search"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+    <div class="card panel-default">
+      <div class="card-header bg-primary text-white">Liste des contacts</div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered table-hover">
+            <thead class="thead-dark">
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Prénom</th>
+                  <th scope="col">Nom</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Date de Naissance</th>
+                  <th scope="col">Téléphone</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let c of appStateService.contactState.contacts; let i = index">
+                  <th scope="row">{{ c.id }}</th>
+                  <td>{{ c.prenom }}</td>
+                  <td>{{ c.nom }}</td>
+                  <td>{{ c.email }}</td>
+                  <td>{{ c.dateNaissance }}</td>
+                  <td>{{ c.telephone }}</td>
+                  <td>
+                    <button class="btn btn-outline-success" (click)="editerConctact(c.id)">
+                      <i class="bi bi-pencil"></i>
+                    </button>
+                    <button class="btn btn-outline-danger ms-2" (click)="ondeletedContact(c.id)" *ngIf="appStateService.authentState.roles=='ADMIN'">
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+          </table>
+        </div>
+        <div class="row">
+          <ul class="pagination">
+            <li *ngFor="let p of appStateService.contactState.pages; let i=index" [ngClass]="{ 'active': appStateService.contactState.currentPage == (i) }">
+              <a (click)="goToPage(i)" class="page-link">{{ i + 1 }}</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>

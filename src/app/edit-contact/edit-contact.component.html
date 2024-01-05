@@ -1,0 +1,101 @@
+<div class="container" *ngIf="mode==0">
+  <div class="card card-default">
+    <div class="card-header bg-primary text-white">Edition du contact {{contact.prenom}} {{contact.nom}}</div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="prenom">Prénom:</label>
+            <strong>{{contact.prenom}}</strong>
+          </div>
+          <hr>
+          <div class="form-group">
+            <label for="nom">Nom:</label>
+            <strong>{{contact.nom}}</strong>
+          </div>
+          <hr>
+          <div class="form-group">
+            <label for="dateNaissance">Date de naissance:</label>
+            <strong>{{contact.dateNaissance}}</strong>
+          </div>
+          <hr>
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <strong>{{contact.email}}</strong>
+          </div>
+          <hr>
+          <div class="form-group">
+            <label for="telephone">Téléphone:</label>
+            <strong>{{contact.telephone}}</strong>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <hr class="d-md-none"> <!-- Séparateur mobile -->
+          <!-- Ajoutez d'autres détails du contact ici à droite -->
+        </div>
+      </div>
+      <hr>
+      <div class="form-group m-2">
+        <button class="btn btn-danger m-2" (click)="onDeleteEditingContact(contact.id)">Supprimer</button>
+        <button class="btn btn-success m-2" (click)="onGetUpdatedContact(contact.id)">Modifier</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="container" *ngIf="mode==1">
+  <div class="card">
+    <div class="card-header bg-primary text-white">Modification du contact</div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-lg-6 col-lg-offset-3">
+          <form #f="ngForm" (ngSubmit)="onUpdateContact(f.value)" class="my-form" novalidate>
+            <div class="form-group">
+              <label class="control-label">Prénom</label>
+              <input ngModel [(ngModel)]="contact.prenom" #prenom="ngModel" name="prenom" type="text"
+                class="form-control" placeholder="Votre prénom" required>
+              <span class="alert" *ngIf="!prenom.valid && (prenom.dirty || prenom.touched)">Prénom obligatoire</span>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label">Nom</label>
+              <input ngModel [(ngModel)]="contact.nom" #nom="ngModel" name="nom" type="text"
+                class="form-control" placeholder="Votre nom" required>
+              <span class="alert" *ngIf="!nom.valid && (nom.dirty || nom.touched)">Nom obligatoire</span>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label">Email</label>
+              <input ngModel [(ngModel)]="contact.email" #email="ngModel" name="email" type="email"
+                class="form-control" placeholder="Votre email" required email>
+              <span class="alert" *ngIf="!email.valid && (email.dirty || email.touched)">Email obligatoire</span>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label">Date de naissance</label>
+              <input ngModel [(ngModel)]="contact.dateNaissance" #date="ngModel" name="dateNaissance" type="date"
+                class="form-control" placeholder="Date de naissance" required>
+              <span class="alert" *ngIf="!date.valid && (date.dirty || date.touched)">Date de naissance obligatoire</span>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label">Téléphone</label>
+              <input ngModel [(ngModel)]="contact.telephone" #telephone="ngModel" name="telephone" type="tel"
+                class="form-control" placeholder="Votre numéro de téléphone" required>
+              <span class="alert" *ngIf="!telephone.valid && (telephone.dirty || telephone.touched)">Téléphone obligatoire</span>
+            </div>
+
+            <div class="form-group mt-2">
+              <button [disabled]="!f.valid" class="btn btn-primary btn-block" type="submit">
+                Enregistrer les modifications
+                <span *ngIf="isUpdating" class="spinner-border spinner-border-lg ml-2" role="status" aria-hidden="true"></span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

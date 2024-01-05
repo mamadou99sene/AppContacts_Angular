@@ -1,0 +1,29 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container">
+    <a class="navbar-brand" href="/home/#">Votre Application</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/home/contacts" routerLinkActive="active">Contacts</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/home/new" routerLinkActive="active">Nouveau Contact</a>
+        </li>
+      </ul>
+      <div class="navbar">
+        <ul class="navbar-nav ml-auto">
+          <li *ngIf="appStateService.authentState.isAuthenticated" class="nav-pills">
+            <a (click)="logout()" [ngClass]="appStateService.authentState.isAuthenticated?'btn btn-danger':'btn btn-outline-danger'">Logout</a>
+          </li>
+          <li *ngIf="!appStateService.authentState.isAuthenticated">
+            <a (click)="login()" [ngClass]="!appStateService.authentState.isAuthenticated?'btn btn-success':'btn btn-outline-success'">Login</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
