@@ -6,7 +6,7 @@ import { Contact } from 'src/models/Contact';
   providedIn: 'root'
 })
 export class NewContactService {
-  private urlApi:string="http://localhost:8088/api/contacts"
+  private urlApi:string="http://localhost:8088/rs/contacts"
 
   constructor(private http:HttpClient) { }
   saveContact(contact:Contact)
